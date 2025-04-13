@@ -3,16 +3,13 @@ package com.istudent.backend.persistence.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "institute")
 public class Institute {
 
     @Id
@@ -21,7 +18,4 @@ public class Institute {
 
     @Column(nullable = false, unique = true)
     private String name;
-
-    @OneToMany(mappedBy = "institute", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<User> instituteUsers = new ArrayList<>();
 }

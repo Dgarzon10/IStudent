@@ -2,6 +2,7 @@ package com.istudent.backend.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -9,25 +10,27 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "comment")
 public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id",nullable = false)
-    private Post post;
-
-    private String body;
-
-    private String status;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    private String created_at;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String body;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 }
