@@ -22,12 +22,16 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public List<Post> getPostByInstitute(Long id){
+    public List<Post> getPostByForum(Long id){
         return postRepository.findPostByForumId(id).orElseThrow();
     }
 
     public void deletePost(Long id){
         postRepository.deleteById(id);
+    }
+
+    public Post getPost(Long id){
+        return postRepository.findById(id).orElseThrow();
     }
 
 }
