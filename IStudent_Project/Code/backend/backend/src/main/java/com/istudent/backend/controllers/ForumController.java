@@ -22,6 +22,12 @@ public class ForumController {
         return ResponseEntity.ok(createdForum);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Forum>> getAllForums() {
+        List<Forum> forums = forumService.getAllForums();
+        return ResponseEntity.ok(forums);
+    }
+
     @GetMapping("/institute/{instituteId}")
     public ResponseEntity<List<Forum>> getForumsByInstitute(@PathVariable Long instituteId) {
         List<Forum> forums = forumService.getForumsByInstitute(instituteId);

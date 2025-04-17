@@ -38,11 +38,15 @@ public class UserService {
         return responseDto;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponseDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map((user) -> modelMapper.map(user, UserResponseDto.class))
+                .toList();
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow();
+    public UserResponseDto getUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        return modelMapper.map(user, UserResponseDto.class);
     }
 }

@@ -47,20 +47,27 @@ public class PostService {
         return modelMapper.map(postSaved, PostResponseDto.class);
     }
 
-    public List<Post> getPostByForum(Long id){
-        return postRepository.findPostByForumId(id).orElseThrow();
+    public List<PostResponseDto> getPostByForum(Long id){
+        List<Post> posts= postRepository.findPostByForumId(id).orElseThrow();
+        return posts.stream()
+                .map(post -> modelMapper.map(post, PostResponseDto.class))
+                .toList();
     }
 
     public void deletePost(Long id){
         postRepository.deleteById(id);
     }
 
-    public Post getPost(Long id){
-        return postRepository.findById(id).orElseThrow();
+    public PostResponseDto getPost(Long id){
+        Post post = postRepository.findById(id).orElseThrow();
+        return modelMapper.map(post, PostResponseDto.class);
     }
 
-    public List<Post> getAllPosts(){
-        return postRepository.findAll();
+    public List<PostResponseDto> getAllPosts(){
+        List<Post> posts= postRepository.findAll();
+        return posts.stream()
+                .map(post -> modelMapper.map(post, PostResponseDto.class))
+                .toList();
     }
 
 }

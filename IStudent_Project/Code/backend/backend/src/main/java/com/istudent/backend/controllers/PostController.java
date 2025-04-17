@@ -2,7 +2,6 @@ package com.istudent.backend.controllers;
 
 import com.istudent.backend.dto.PostDto;
 import com.istudent.backend.dto.PostResponseDto;
-import com.istudent.backend.persistence.entities.Post;
 import com.istudent.backend.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,20 +23,20 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
+    public ResponseEntity<List<PostResponseDto>> getAllPosts() {
+        List<PostResponseDto> posts = postService.getAllPosts();
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/forum/{forumId}")
-    public ResponseEntity<List<Post>> getPostsByForum(@PathVariable Long forumId) {
-        List<Post> posts = postService.getPostByForum(forumId);
+    public ResponseEntity<List<PostResponseDto>> getPostsByForum(@PathVariable Long forumId) {
+        List<PostResponseDto> posts = postService.getPostByForum(forumId);
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPost(@PathVariable Long id) {
-        Post post = postService.getPost(id);
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable Long id) {
+        PostResponseDto post = postService.getPost(id);
         return ResponseEntity.ok(post);
     }
 

@@ -40,4 +40,8 @@ public class ForumService {
     public Forum getForumById(Long id) {
         return forumRepository.findById(id).orElseThrow();
     }
+
+    public List<Forum> getAllForums() {
+        return forumRepository.findAll();
+    }
 }
