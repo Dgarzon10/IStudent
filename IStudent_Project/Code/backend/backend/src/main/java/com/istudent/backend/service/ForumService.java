@@ -1,6 +1,7 @@
 package com.istudent.backend.service;
 
 import com.istudent.backend.dto.ForumDto;
+import com.istudent.backend.dto.ForumResponseDto;
 import com.istudent.backend.persistence.entities.Forum;
 import com.istudent.backend.persistence.entities.Institute;
 import com.istudent.backend.persistence.repository.ForumRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,28 +22,41 @@ public class ForumService {
     private final InstituteRepository instituteRepository;
     private final ModelMapper modelMapper;
 
-    public Forum createForum(ForumDto forumDto) {
-        Forum forum = modelMapper.map(forumDto, Forum.class);
+    public ForumResponseDto createForum(ForumDto forumDto) {
+        Forum forum = Forum.builder()
+                .name(forumDto.getName())
+                .type(forumDto.getType())
+                .description(forumDto.getDescription())
+                .createdAt(LocalDateTime.now())
+                .build();
 
-        if (!Objects.equals(forum.getType(), "institutional")){
-            return forumRepository.save(forum);
+        if (Objects.equals(forumDto.getType(), "institutional")){
+            Institute institute = instituteRepository.findById(forumDto.getInstituteId())
+                    .orElseThrow(() -> new RuntimeException("Institute not found"));
+            forum.setInstitute(institute);
         }
-        Institute institute = instituteRepository.findById(forumDto.getInstituteId())
-                .orElseThrow(() -> new RuntimeException("Institute not found"));
-        forum.setInstitute(institute);
-        return forumRepository.save(forum);
+
+        Forum forumSaved = forumRepository.save(forum);
+        return modelMapper.map(forumSaved, ForumResponseDto.class);
 
     }
 
-    public List<Forum> getForumsByInstitute(Long instituteId) {
-        return forumRepository.findByInstituteId(instituteId).orElseThrow();
+    public List<ForumResponseDto> getForumsByInstitute(Long instituteId) {
+        List<Forum> forums = forumRepository.findByInstituteId(instituteId).orElseThrow();
+        return forums.stream()
+                .map( forum -> modelMapper.map(forum, ForumResponseDto.class))
+                .toList();
     }
 
-    public Forum getForumById(Long id) {
-        return forumRepository.findById(id).orElseThrow();
+    public ForumResponseDto getForumById(Long id) {
+        Forum forum = forumRepository.findById(id).orElseThrow();
+        return modelMapper.map(forum, ForumResponseDto.class);
     }
 
-    public List<Forum> getAllForums() {
-        return forumRepository.findAll();
+    public List<ForumResponseDto> getAllForums() {
+        List<Forum> forums = forumRepository.findAll();
+        return forums.stream()
+                .map( forum -> modelMapper.map(forum, ForumResponseDto.class))
+                .toList();
     }
 }

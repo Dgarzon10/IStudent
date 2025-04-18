@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,20 +22,26 @@ public class UserService {
     private final ModelMapper modelMapper;
 
     public UserResponseDto createUser(UserRegistrationDto userDto) {
-        User user = modelMapper.map(userDto, User.class);
+        User user = User.builder()
+                .email(userDto.getEmail())
+                .role(userDto.getRole())
+                .hashedPassword(userDto.getHashedPassword())
+                .createdAt(LocalDateTime.now())
+                .build();
 
-        if (user.getInstitute() == null){
-            User savedUser = userRepository.save(user);
-            return modelMapper.map(savedUser, UserResponseDto.class);
+        if (userDto.getInstitute_Id() != null){
+            Institute institute = instituteRepository.findById(userDto.getInstitute_Id())
+                    .orElseThrow(() -> new RuntimeException("Institute not found"));
+            user.setInstitute(institute);
         }
-        Institute institute = instituteRepository.findById(userDto.getInstituteId())
-                .orElseThrow(() -> new RuntimeException("Institute not found"));
-        user.setInstitute(institute);
+
 
         User savedUser = userRepository.save(user);
 
         UserResponseDto responseDto = modelMapper.map(savedUser, UserResponseDto.class);
-        responseDto.setInstituteName(institute.getName());
+        if(savedUser.getInstitute()  != null){
+            responseDto.setInstituteName(savedUser.getInstitute().getName());
+        }
         return responseDto;
     }
 
