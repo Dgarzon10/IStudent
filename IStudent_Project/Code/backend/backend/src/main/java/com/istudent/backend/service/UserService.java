@@ -8,6 +8,7 @@ import com.istudent.backend.persistence.repository.InstituteRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,12 +21,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final InstituteRepository instituteRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto createUser(UserRegistrationDto userDto) {
         User user = User.builder()
                 .email(userDto.getEmail())
                 .role(userDto.getRole())
-                .hashedPassword(userDto.getHashedPassword())
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .createdAt(LocalDateTime.now())
                 .build();
 
