@@ -1,6 +1,7 @@
 package com.istudent.backend.service;
 
 import com.istudent.backend.dto.CommentDto;
+import com.istudent.backend.dto.CommentResponseDto;
 import com.istudent.backend.persistence.entities.Comment;
 import com.istudent.backend.persistence.entities.Post;
 import com.istudent.backend.persistence.entities.User;
@@ -24,7 +25,7 @@ public class CommentService {
 
     private final ModelMapper modelMapper;
 
-    public CommentDto createdComment(CommentDto commentDto){
+    public CommentResponseDto createdComment(CommentDto commentDto){
 
         Post post = postRepository.findById(commentDto.getPostId())
                 .orElseThrow(() -> new RuntimeException("Post not Found"));
@@ -41,27 +42,27 @@ public class CommentService {
                 .build();
 
         Comment commentSaved = commentRepository.save(comment);
-        return modelMapper.map(commentSaved, CommentDto.class);
+        return modelMapper.map(commentSaved, CommentResponseDto.class);
     }
 
-    public List<CommentDto> getCommentsByPost(Long id){
+    public List<CommentResponseDto> getCommentsByPost(Long id){
         List<Comment> comments = commentRepository.findCommentsByPostId(id).orElseThrow();
         return  comments.stream()
-                .map(comment -> modelMapper.map(comment, CommentDto.class))
+                .map(comment -> modelMapper.map(comment, CommentResponseDto.class))
                 .toList();
     }
 
-    public List<CommentDto> getCommentsByUser(Long id){
+    public List<CommentResponseDto> getCommentsByUser(Long id){
         List<Comment> comments = commentRepository.findCommentsByUserId(id).orElseThrow();
         return comments.stream()
-                .map(comment -> modelMapper.map(comment, CommentDto.class))
+                .map(comment -> modelMapper.map(comment, CommentResponseDto.class))
                 .toList();
     }
 
-    public List<CommentDto> getAllComments(){
+    public List<CommentResponseDto> getAllComments(){
         List<Comment> comments = commentRepository.findAll();
         return comments.stream()
-                .map(comment -> modelMapper.map(comment, CommentDto.class))
+                .map(comment -> modelMapper.map(comment, CommentResponseDto.class))
                 .toList();
     }
 
