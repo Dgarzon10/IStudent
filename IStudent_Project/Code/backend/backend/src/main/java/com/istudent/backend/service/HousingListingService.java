@@ -10,6 +10,7 @@ import com.istudent.backend.persistence.repository.HousingListingRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -70,6 +71,7 @@ public class HousingListingService {
         return mapToResponseDto(listing);
     }
 
+    @PreAuthorize("hasAnyAuthority('admin')")
     public void deleteListing(Long id) {
         housingListingRepository.deleteById(id);
     }

@@ -5,6 +5,7 @@ import com.istudent.backend.dto.CommentResponseDto;
 import com.istudent.backend.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class CommentController {
         return ResponseEntity.ok(comments);
     }
 
+    @PreAuthorize("hasAnyAuthority('admin','moderator')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         commentService.deletedComment(id);

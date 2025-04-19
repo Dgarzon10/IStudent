@@ -6,10 +6,11 @@ import com.istudent.backend.persistence.entities.Institute;
 import com.istudent.backend.persistence.repository.InstituteRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class InstituteService {
     private final InstituteRepository instituteRepository;
     private final ModelMapper modelMapper;
 
+    @PreAuthorize("hasAnyAuthority('admin')")
     public InstituteResponseDto createInstitute(InstituteDto dto) {
         Institute institute = modelMapper.map(dto, Institute.class);
         Institute savedInstitute = instituteRepository.save(institute);
@@ -37,6 +39,7 @@ public class InstituteService {
         return modelMapper.map(institute, InstituteResponseDto.class);
     }
 
+    @PreAuthorize("hasAnyAuthority('admin')")
     public void deleteInstitute(Long id) {
         instituteRepository.deleteById(id);
     }

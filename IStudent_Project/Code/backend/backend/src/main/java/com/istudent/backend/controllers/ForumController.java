@@ -2,7 +2,6 @@ package com.istudent.backend.controllers;
 
 import com.istudent.backend.dto.ForumDto;
 import com.istudent.backend.dto.ForumResponseDto;
-import com.istudent.backend.persistence.entities.Forum;
 import com.istudent.backend.service.ForumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,4 +39,10 @@ public class ForumController {
         ForumResponseDto forum = forumService.getForumById(id);
         return ResponseEntity.ok(forum);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteForumById(@PathVariable Long id){
+        forumService.deleteForum(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

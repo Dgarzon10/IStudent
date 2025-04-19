@@ -10,6 +10,7 @@ import com.istudent.backend.persistence.repository.PostRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,9 +23,9 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final ForumRepository forumRepository;
-
     private final ModelMapper modelMapper;
 
+    @PreAuthorize("hasAnyAuthority('moderator','student','admin', 'visitor')")
     public PostResponseDto createdPost(PostDto postDto){
 
         User user = userRepository.findById(postDto.getUserId())
@@ -54,6 +55,7 @@ public class PostService {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyAuthority('moderator','admin')")
     public void deletePost(Long id){
         postRepository.deleteById(id);
     }

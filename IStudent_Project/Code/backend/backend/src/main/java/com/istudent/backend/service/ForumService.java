@@ -8,6 +8,7 @@ import com.istudent.backend.persistence.repository.ForumRepository;
 import com.istudent.backend.persistence.repository.InstituteRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -58,5 +59,10 @@ public class ForumService {
         return forums.stream()
                 .map( forum -> modelMapper.map(forum, ForumResponseDto.class))
                 .toList();
+    }
+
+    @PreAuthorize("hasAnyAuthority('admin')")
+    public void deleteForum(Long id){
+        forumRepository.deleteById(id);
     }
 }

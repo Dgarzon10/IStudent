@@ -8,6 +8,7 @@ import com.istudent.backend.persistence.repository.InstituteRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +58,10 @@ public class UserService {
     public UserResponseDto getUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow();
         return modelMapper.map(user, UserResponseDto.class);
+    }
+
+    @PreAuthorize("hasAnyAuthority('admin')")
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
