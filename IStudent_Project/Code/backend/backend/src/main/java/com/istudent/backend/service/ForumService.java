@@ -26,8 +26,9 @@ public class ForumService {
     public ForumResponseDto createForum(ForumDto forumDto) {
         Forum forum = Forum.builder()
                 .name(forumDto.getName())
-                .type(forumDto.getType())
                 .description(forumDto.getDescription())
+                .type(forumDto.getType())
+                .topic(forumDto.getTopic())
                 .createdAt(LocalDateTime.now())
                 .build();
 
@@ -60,6 +61,27 @@ public class ForumService {
                 .map( forum -> modelMapper.map(forum, ForumResponseDto.class))
                 .toList();
     }
+
+    public List<ForumResponseDto> filterForums(String name, String type, String topic) {
+        List<Forum> forums;
+
+        if (name != null && type != null && topic != null) {
+            forums = forumRepository.findByNameContainingIgnoreCaseAndTypeIgnoreCaseAndTopicIgnoreCase(name, type, topic);
+        } else if (name != null && topic != null) {
+            forums = forumRepository.findByNameContainingIgnoreCaseAndTopicIgnoreCase(name, topic);
+        } else if (topic != null) {
+            forums = forumRepository.findByTopicIgnoreCase(topic);
+        } else if (name != null) {
+            forums = forumRepository.findByNameContainingIgnoreCase(name);
+        } else {
+            forums = forumRepository.findAll();
+        }
+
+        return forums.stream()
+                .map(forum -> modelMapper.map(forum, ForumResponseDto.class))
+                .toList();
+    }
+
 
     @PreAuthorize("hasAnyAuthority('admin')")
     public void deleteForum(Long id){

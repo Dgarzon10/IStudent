@@ -36,4 +36,13 @@ public class HousingListingController {
         housingListingService.deleteListing(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<HousingListingResponseDto>> filterListings(
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice) {
+        return ResponseEntity.ok(housingListingService.filterListings(location, minPrice, maxPrice));
+    }
+
 }

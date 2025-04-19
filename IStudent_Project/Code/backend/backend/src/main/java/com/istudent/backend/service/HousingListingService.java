@@ -71,6 +71,24 @@ public class HousingListingService {
         return mapToResponseDto(listing);
     }
 
+    public List<HousingListingResponseDto> filterListings(String location, Double minPrice, Double maxPrice) {
+        List<HousingListing> listings;
+
+        if (location != null && minPrice != null && maxPrice != null) {
+            listings = housingListingRepository.findByLocationContainingIgnoreCaseAndPriceBetween(location, minPrice, maxPrice);
+        } else if (location != null) {
+            listings = housingListingRepository.findByLocationContainingIgnoreCase(location);
+        } else if (minPrice != null && maxPrice != null) {
+            listings = housingListingRepository.findByPriceBetween(minPrice, maxPrice);
+        } else {
+            listings = housingListingRepository.findAll();
+        }
+
+        return listings.stream()
+                .map(this::mapToResponseDto)
+                .toList();
+    }
+
     @PreAuthorize("hasAnyAuthority('admin')")
     public void deleteListing(Long id) {
         housingListingRepository.deleteById(id);

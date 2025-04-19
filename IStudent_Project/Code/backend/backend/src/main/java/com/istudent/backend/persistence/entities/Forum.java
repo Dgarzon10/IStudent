@@ -28,6 +28,9 @@ public class Forum {
     private Institute institute;
 
     @Column(nullable = false)
+    private String topic;
+
+    @Column(nullable = false)
     private String type; // Ej: "institutional", "general", "events"
 
 

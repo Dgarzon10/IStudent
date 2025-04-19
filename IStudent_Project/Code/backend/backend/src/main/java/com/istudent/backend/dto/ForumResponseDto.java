@@ -10,6 +10,7 @@ public class ForumResponseDto {
     private String name;
     private String description;
     private String type;
+    private String topic;
     private Long instituteId;
     private String instituteName;
     private LocalDateTime createdAt;

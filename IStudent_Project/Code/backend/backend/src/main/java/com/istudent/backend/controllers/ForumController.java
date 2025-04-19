@@ -45,4 +45,13 @@ public class ForumController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<List<ForumResponseDto>> filterForums(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String topic) {
+        return ResponseEntity.ok(forumService.filterForums(name, type, topic));
+    }
+
+
 }

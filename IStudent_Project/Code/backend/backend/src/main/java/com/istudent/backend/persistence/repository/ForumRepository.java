@@ -10,4 +10,9 @@ import java.util.Optional;
 @Repository
 public interface ForumRepository extends JpaRepository<Forum, Long> {
     Optional<List<Forum>> findByInstituteId(Long id);
+    List<Forum> findByNameContainingIgnoreCase(String name);
+    List<Forum> findByNameContainingIgnoreCaseAndTypeIgnoreCaseAndTopicIgnoreCase(String name, String type, String topic);
+    List<Forum> findByTopicIgnoreCase(String topic);
+    List<Forum> findByNameContainingIgnoreCaseAndTopicIgnoreCase(String name, String topic);
+
 }
