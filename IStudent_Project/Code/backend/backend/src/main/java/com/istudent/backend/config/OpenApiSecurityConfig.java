@@ -16,7 +16,9 @@ public class OpenApiSecurityConfig {
                 .info(new Info()
                         .title("IStudent Backend API")
                         .version("1.0.0")
-                        .description("API REST para gestión de foros, housing e instituciones universitarias.")
+                        .description("""
+                                API REST for Istudent project.\
+                                 See more at: https://github.com/Dgarzon10/IStudent""")
                 )
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",
