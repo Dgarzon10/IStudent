@@ -32,6 +32,7 @@ A centralized web platform designed to help international students access essent
 
 - `Users`: student info, role, and associated institute
 - `Institute`: registered universities/institutes
+- `Forum`: Place where you can public a Post
 - `Posts`: forum posts
 - `Comment`: comments on posts
 - `HousingListing`: housing listings offered by users
@@ -50,9 +51,9 @@ This is an early-stage MVP under active development.
 
 - ✅ Week 1: Define user stories, features, and database model
 - 🔄 Week 2–3: Backend setup + authentication + user CRUD
-- 🔄 Week 4–5: Forum system implementation
-- 🔄 Week 6: Housing system
-- 🔄 Week 7: Institute-based community feature
+- 🔄 Week 4–5: FrontEnd
+- 🔄 Week 6: Union
+- 🔄 Week 7: Testing
 - 🚀 Week 8: MVP deployment
 
 ---
