@@ -51,7 +51,7 @@ public class ForumService {
     }
 
     public ForumResponseDto getForumById(Long id) {
-        Forum forum = forumRepository.findById(id).orElseThrow();
+        Forum forum = forumRepository.findById(id).orElseThrow(() -> new RuntimeException("Institute not found"));
         return modelMapper.map(forum, ForumResponseDto.class);
     }
 
