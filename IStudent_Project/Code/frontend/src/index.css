@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --breakpoint-3xl: 120rem;
+
+  --color-primary: #7C3AED;
+  --color-accent: #60A5FA;
+  --color-background: #F9FAFB;
+  --color-text: #111827;
+
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Optional gradients or additional colors */
+  --gradient-primary: linear-gradient(90deg, #7C3AED 0%, #60A5FA 100%);
+}
