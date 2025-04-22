@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import ForumCard from '../components/ForumCard';
+import HousingCard from '../components/HousingCard';
 
 function Home() {
   return (
@@ -16,21 +18,12 @@ function Home() {
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Forums Card */}
-          <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md">
-            <h2 className="text-2xl font-semibold text-primary mb-4">Forums</h2>
-            <ul className="mb-4">
-              <li className="text-text">Most Discussed: Forum 1</li>
-              <li className="text-text">Most Discussed: Forum 2</li>
-            </ul>
-            <Link className="text-accent hover:underline" to="/forums">Go to Forums</Link>
-          </div>
+
+          <ForumCard />
+
 
           {/* Housing Card */}
-          <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md">
-            <h2 className="text-2xl font-semibold text-primary mb-4">Housing</h2>
-            <p className="text-text mb-4">20 available apartments matching your filters.</p>
-            <Link className="text-accent hover:underline" to="/housing">See Housing</Link>
-          </div>
+          <HousingCard />
         </div>
       </div>
   );
