@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import ForumCard from '../components/ForumCard';
-import HousingCard from '../components/HousingCard';
+import HousingFilterCard from '../components/HousingFilterCard';
 
 function Home() {
   return (
@@ -23,7 +23,7 @@ function Home() {
 
 
           {/* Housing Card */}
-          <HousingCard />
+          <HousingFilterCard />
         </div>
       </div>
   );

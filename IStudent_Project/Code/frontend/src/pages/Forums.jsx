@@ -1,35 +1,48 @@
-import HousingCard from "../components/HousingCard";
-import ForumCard from "../components/ForumCard";
+import PostCard from "../components/PostCard";
+import { Link } from "react-router-dom";
 
 function Forum() {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6">
-
-        {/* Intro Section */}
-        <div className="mb-12 flex flex-col items-center justify-center text-center p-6 bg-gray-100 rounded-lg shadow-md">
-          <h1 className="text-4xl font-bold text-primary mb-4">Welcome to IStudent Hub</h1>
-          <p className="text-text text-lg max-w-2xl">
-            This platform connects international students with housing, forums, and institutes.
-            Explore the most discussed topics or find your next home.
+  return (
+    <div className="flex min-h-screen bg-gray-50">
+      {/* Main Content */}
+      <div className="w-[70%] p-6">
+        {/* Carrusel de noticias destacadas */}
+        <div className="mb-8 bg-gray-100 rounded-lg p-6 shadow text-center">
+          <h1 className="text-3xl font-bold text-primary mb-2">Featured Posts</h1>
+          <p className="text-text text-md">
+            Stay updated with the most relevant news shared by your fellow students.
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid  gap-6">
-          {/* Forums Card */}
-          <ForumCard />
-          <ForumCard />
-          <ForumCard />
-          <ForumCard />
-
-          {/* Housing Card */}
-          <HousingCard />
+        {/* Listado de posts */}
+        <div className="space-y-6">
+          <PostCard
+            title="Looking for a roommate near campus"
+            content="Hey! I have an extra room in a 2-bedroom apartment near the university..."
+            forumName="Housing Forum"
+            author="ana123"
+            imageUrl="https://source.unsplash.com/random/600x300?apartment"
+          />
+          <PostCard
+            title="Visa appointment delays"
+            content="Anyone else experiencing issues getting a visa interview on time?"
+            forumName="Student Life"
+            author="john_d"
+          />
         </div>
       </div>
 
-    );
-  
-  }
-  
-  export default Forum;
-  
+      {/* Sidebar derecha: foros seguidos */}
+      <aside className="w-[30%] bg-white border-l border-gray-200 p-6">
+        <h3 className="text-lg font-bold mb-4">Your Subscribed Forums</h3>
+        <ul className="space-y-2 text-sm text-accent">
+          <li><Link to="/forums/housing">🏠 Housing</Link></li>
+          <li><Link to="/forums/student-life">💬 Student Life</Link></li>
+          <li><Link to="/forums/jobs">💼 Part-time Jobs</Link></li>
+        </ul>
+      </aside>
+    </div>
+  );
+}
+
+export default Forum;
