@@ -20,6 +20,11 @@ function SideBar() {
             <Building className="w-5 h-5 mr-3" /> Housing
           </Link>
         </li>
+        <li>
+          <Link to="/institute" className="flex items-center text-text text-lg hover:text-primary">
+            <Building className="w-5 h-5 mr-3" /> Institute
+          </Link>
+        </li>
 
       </ul>
     </aside>
