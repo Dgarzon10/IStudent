@@ -6,6 +6,7 @@ import Forums from './pages/Forums';
 import Housing from './pages/Housing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Institute from './pages/Institute';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
             <Route path="/housing" element={<Housing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/institute" element={<Institute />} />
+            {/* Agregar más rutas según sea necesario */}
+            <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </div>
       </div>
