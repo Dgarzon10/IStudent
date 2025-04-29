@@ -31,7 +31,10 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className="w-full bg-primary text-white py-2 rounded">
+        <button
+          type="submit"
+          className="w-full bg-primary text-white p-2 rounded transition-transform duration-150 active:scale-95 hover:bg-primary/90"
+        >
           Login
         </button>
       </form>

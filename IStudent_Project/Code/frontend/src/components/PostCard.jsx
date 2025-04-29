@@ -5,7 +5,13 @@ function PostCard({ title, content, imageUrl, forumName, author }) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4 shadow hover:shadow-md transition">
       <div className="flex justify-between text-sm text-gray-500 mb-2">
-        <span>{forumName}</span>
+        <Link
+          to={`/forums/${forumName}`}
+          className="text-accent hover:underline"
+        >
+          {forumName}
+        </Link>
+
         <span>by {author}</span>
       </div>
 
@@ -18,7 +24,7 @@ function PostCard({ title, content, imageUrl, forumName, author }) {
       <p className="text-gray-700 mb-4">{content.slice(0, 150)}...</p>
 
       <div className="flex justify-between items-center">
-        <Link to={`/forums/${forumName}`} className="text-accent hover:underline text-sm">
+        <Link to={`/forums/${forumName}`} className="text-accent hover:underline text-sm"> 
           View full post →
         </Link>
         <button className="flex items-center gap-1 text-gray-500 hover:text-accent">

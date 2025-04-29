@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../components/AuthContext";
+import toast from "react-hot-toast";
 
 function Signup() {
   const { signup } = useAuth();
@@ -7,9 +8,29 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student");
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!role || (role !== "student" && role !== "visitor")) {
+      toast.error("Please select a valid role before signing up.");
+      return;
+    }
+
+    if (!email.includes("@") && !email.includes(".")) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
+    
+     
     await signup(email, password, role);
+    toast.success("Sign up successful!");
+    console.log("User signed up:", { email, password, role });
   };
 
   return (

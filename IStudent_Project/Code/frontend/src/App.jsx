@@ -6,7 +6,10 @@ import Forums from './pages/Forums';
 import Housing from './pages/Housing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ForumDetail from './pages/ForumDetail';
 import Institute from './pages/Institute';
+import NewPostPage from './pages/NewPost';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -20,6 +23,7 @@ function App() {
 
         {/* Contenido de página */}
         <div className="flex-1 overflow-y-auto p-8 bg-background">
+        <Toaster position="top-center" reverseOrder={false} /> 
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/forums" element={<Forums />} />
@@ -27,6 +31,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/institute" element={<Institute />} />
+            <Route path="/forums/:forumName" element={<ForumDetail />} /> 
+            <Route path="/new-post" element={<NewPostPage />} />
+            <Route path="/forums/:forumName/:postId" element={<ForumDetail />} />
             {/* Agregar más rutas según sea necesario */}
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
