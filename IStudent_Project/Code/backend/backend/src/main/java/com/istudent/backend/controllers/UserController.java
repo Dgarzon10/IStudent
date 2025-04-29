@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 @Tag(name = "User", description = "Operations over Users")
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;

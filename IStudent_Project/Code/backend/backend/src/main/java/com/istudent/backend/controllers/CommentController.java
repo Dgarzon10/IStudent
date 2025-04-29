@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/comments")
 @RequiredArgsConstructor
 @Tag(name = "Comments", description = "Comment operations")
+@CrossOrigin
 public class CommentController {
 
     private final CommentService commentService;

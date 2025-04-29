@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/forums")
 @RequiredArgsConstructor
 @Tag(name = "Forum", description = "Operations over Forums")
+@CrossOrigin
 public class ForumController {
 
     private final ForumService forumService;

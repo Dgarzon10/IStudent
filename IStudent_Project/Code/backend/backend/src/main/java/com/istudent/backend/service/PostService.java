@@ -48,8 +48,15 @@ public class PostService {
         return modelMapper.map(postSaved, PostResponseDto.class);
     }
 
-    public List<PostResponseDto> getPostByForum(Long id){
+    public List<PostResponseDto> getPostByForumId(Long id){
         List<Post> posts= postRepository.findPostByForumId(id).orElseThrow();
+        return posts.stream()
+                .map(post -> modelMapper.map(post, PostResponseDto.class))
+                .toList();
+    }
+
+    public List<PostResponseDto> getPostByForumName(String name){
+        List<Post> posts= postRepository.findPostByForumName(name).orElseThrow();
         return posts.stream()
                 .map(post -> modelMapper.map(post, PostResponseDto.class))
                 .toList();

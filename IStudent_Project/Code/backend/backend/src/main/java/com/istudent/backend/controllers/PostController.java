@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/posts")
 @RequiredArgsConstructor
 @Tag(name = "Post", description = "Operation over Post that has to be in a Forum")
+@CrossOrigin
 public class PostController {
 
     private final PostService postService;
@@ -33,10 +34,17 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
+    @GetMapping("/by-forum-name")
+    @Operation(summary = "Get all Posts by forum name")
+    public ResponseEntity<List<PostResponseDto>> getPostsByForumName(@RequestParam String name) {
+        List<PostResponseDto> posts = postService.getPostByForumName(name);
+        return ResponseEntity.ok(posts);
+    }
+
     @GetMapping("/forum/{forumId}")
     @Operation(summary = "Get all Posts of an specific forum")
     public ResponseEntity<List<PostResponseDto>> getPostsByForum(@PathVariable Long forumId) {
-        List<PostResponseDto> posts = postService.getPostByForum(forumId);
+        List<PostResponseDto> posts = postService.getPostByForumId(forumId);
         return ResponseEntity.ok(posts);
     }
 

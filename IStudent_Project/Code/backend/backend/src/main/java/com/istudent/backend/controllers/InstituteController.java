@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/institutes")
 @RequiredArgsConstructor
 @Tag(name = "Institute", description = "Operation over Institute")
+@CrossOrigin
 public class InstituteController {
 
     private final InstituteService instituteService;

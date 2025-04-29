@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll() // public
                         .requestMatchers("/housing/**").authenticated() // Login required ⬇️
                         .requestMatchers("/posts/**").permitAll()
-                        .requestMatchers("/forums/**").authenticated()
+                        .requestMatchers("/forums/**").permitAll()
                         .requestMatchers("/comments/**").authenticated()
                         .requestMatchers("/institutes/**").authenticated()
                         .anyRequest().permitAll()

@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/housing")
 @RequiredArgsConstructor
 @Tag(name = "Housing", description = "Operation over Housing")
+@CrossOrigin
 public class HousingListingController {
 
     private final HousingListingService housingListingService;
