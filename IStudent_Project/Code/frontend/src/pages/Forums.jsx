@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import NewsCarousel from "../components/NewsCarousel";
+import NewsCarousel from "../components/Forum/NewsCarousel";
 import PostCard from "../components/PostCard";
-import ForumSidebar from "../components/ForumSideBar";
+import ForumSidebar from "../components/Forum/ForumSideBar";
 import axiosInstance from "../api/axiosInstance";
 
 function Forum() {

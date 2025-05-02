@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import ForumCard from '../components/ForumCard';
-import HousingFilterCard from '../components/HousingFilterCard';
+import ForumCard from '../components/Forum/ForumCard';
+import HousingFilterCard from '../components/Housing/HousingFilterCard';
 
 function Home() {
   return (

@@ -6,16 +6,16 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
-  const [userId, setUserId] = useState(localStorage.getItem("UserId") || null);
-  const [userRole, setUserRole] = useState(localStorage.getItem("UserRole") || null);
+  const [userId, setUserId] = useState(localStorage.getItem("userId") || null);
+  const [userRole, setUserRole] = useState(localStorage.getItem("role") || null);  
   const navigate = useNavigate();
 
   const login = async (email, password) => {
     try {
       const res = await axiosInstance.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("UserId", res.data.userId);
-      localStorage.setItem("UserRole", res.data.role);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("role", res.data.role);
       setToken(res.data.token);
       setUserId(res.data.userId);
       setUserRole(res.data.role);

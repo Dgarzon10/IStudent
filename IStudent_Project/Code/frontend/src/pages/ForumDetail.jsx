@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import PostCard from "../components/PostCard";
-import ForumSidebar from "../components/ForumSideBar";
+import ForumSidebar from "../components/Forum/ForumSideBar";
 import axiosInstance from "../api/axiosInstance";
 
 function ForumDetail() {
