@@ -8,8 +8,11 @@ import com.istudent.backend.persistence.entities.User;
 import com.istudent.backend.persistence.repository.CommentRepository;
 import com.istudent.backend.persistence.repository.PostRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
+import com.istudent.backend.security.AuthenticatedUserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,9 +25,11 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
+    private final AuthenticatedUserService authenticatedUserService;
 
     private final ModelMapper modelMapper;
 
+    @PreAuthorize("hasAnyAuthority('admin','visitor','student')")
     public CommentResponseDto createdComment(CommentDto commentDto){
 
         Post post = postRepository.findById(commentDto.getPostId())
@@ -45,6 +50,7 @@ public class CommentService {
         return modelMapper.map(commentSaved, CommentResponseDto.class);
     }
 
+    @PreAuthorize("hasAnyAuthority('admin','visitor','student')")
     public List<CommentResponseDto> getCommentsByPost(Long id){
         List<Comment> comments = commentRepository.findCommentsByPostId(id).orElseThrow();
         return  comments.stream()
@@ -52,6 +58,7 @@ public class CommentService {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyAuthority('admin','visitor','student')")
     public List<CommentResponseDto> getCommentsByUser(Long id){
         List<Comment> comments = commentRepository.findCommentsByUserId(id).orElseThrow();
         return comments.stream()
@@ -59,6 +66,7 @@ public class CommentService {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyAuthority('admin','visitor','student')")
     public List<CommentResponseDto> getAllComments(){
         List<Comment> comments = commentRepository.findAll();
         return comments.stream()
@@ -66,7 +74,18 @@ public class CommentService {
                 .toList();
     }
 
+    @PreAuthorize("hasAnyAuthority('moderator','admin', 'student','visitor')")
     public void deletedComment(Long id){
+        User currentUser = authenticatedUserService.getCurrentUser();
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Comment Not Found"));
+
+        boolean isOwner = currentUser.getId().equals(comment.getUser().getId());
+        boolean isAdmin = currentUser.getRole().equalsIgnoreCase("admin");
+
+        if(!isOwner && !isAdmin){
+            throw new AccessDeniedException("Not authorized to delete");
+        }
         commentRepository.deleteById(id);
     }
 

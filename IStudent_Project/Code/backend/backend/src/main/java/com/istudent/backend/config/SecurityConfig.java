@@ -35,10 +35,10 @@ public class SecurityConfig {
                         -> sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))                .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // public
-                        .requestMatchers("/housing/**").authenticated() // Login required ⬇️
+                        .requestMatchers("/housing/**").permitAll()
                         .requestMatchers("/posts/**").permitAll()
                         .requestMatchers("/forums/**").permitAll()
-                        .requestMatchers("/comments/**").authenticated()
+                        .requestMatchers("/comments/**").permitAll()
                         .requestMatchers("/institutes/**").authenticated()
                         .anyRequest().permitAll()
                 )

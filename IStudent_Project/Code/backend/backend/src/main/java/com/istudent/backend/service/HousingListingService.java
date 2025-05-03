@@ -8,9 +8,11 @@ import com.istudent.backend.persistence.entities.HousingListing;
 import com.istudent.backend.persistence.entities.User;
 import com.istudent.backend.persistence.repository.HousingListingRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
+import com.istudent.backend.security.AuthenticatedUserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.AccessDeniedException;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,7 @@ public class HousingListingService {
     private final HousingListingRepository housingListingRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final AuthenticatedUserService authenticatedUserService;
 
     public HousingListingResponseDto createListing(HousingListingDto dto) {
         User user = userRepository.findById(dto.getUserId())
@@ -89,8 +92,17 @@ public class HousingListingService {
                 .toList();
     }
 
-    @PreAuthorize("hasAnyAuthority('admin')")
     public void deleteListing(Long id) {
+        User currentUser = authenticatedUserService.getCurrentUser();
+        HousingListing house = housingListingRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Housing Item not found"));
+
+        boolean isOwner = currentUser.getId().equals(house.getUser().getId());
+        boolean isAdmin = currentUser.getRole().equalsIgnoreCase("admin");
+
+        if (!isOwner && !isAdmin) {
+            throw new AccessDeniedException("Not authorized to delete");
+        }
         housingListingRepository.deleteById(id);
     }
 

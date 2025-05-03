@@ -3,13 +3,16 @@ package com.istudent.backend.service;
 import com.istudent.backend.dto.PostDto;
 import com.istudent.backend.dto.PostResponseDto;
 import com.istudent.backend.persistence.entities.Forum;
+
 import com.istudent.backend.persistence.entities.Post;
 import com.istudent.backend.persistence.entities.User;
 import com.istudent.backend.persistence.repository.ForumRepository;
 import com.istudent.backend.persistence.repository.PostRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
+import com.istudent.backend.security.AuthenticatedUserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final ForumRepository forumRepository;
     private final ModelMapper modelMapper;
+    private final AuthenticatedUserService authenticatedUserService;
 
     @PreAuthorize("hasAnyAuthority('moderator','student','admin', 'visitor')")
     public PostResponseDto createdPost(PostDto postDto){
@@ -62,8 +66,19 @@ public class PostService {
                 .toList();
     }
 
-    @PreAuthorize("hasAnyAuthority('moderator','admin')")
+    @PreAuthorize("hasAnyAuthority('moderator','admin', 'student','visitor')")
     public void deletePost(Long id){
+        User currentUser = authenticatedUserService.getCurrentUser();
+        Post post = postRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Post Item not found"));
+
+        boolean isOwner = currentUser.getId().equals(post.getUser().getId());
+        boolean isAdmin = currentUser.getRole().equalsIgnoreCase("admin");
+
+        if (!isOwner && !isAdmin) {
+            throw new AccessDeniedException("Not authorized to delete");
+        }
+
         postRepository.deleteById(id);
     }
 
