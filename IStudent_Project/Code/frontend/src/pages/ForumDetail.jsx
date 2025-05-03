@@ -35,12 +35,7 @@ function ForumDetail() {
       <div className="w-[75%] h-full overflow-y-auto p-6 space-y-6">
         
       <div className="mb-4 text-3xl font-bold capitalize">
-        <Link
-          to={`/forums/${forumName}`}
-          className="text-primary hover:underline"
-        >
-          {forumName.replace("-", " ")} 
-        </Link>
+          {forumName}
       </div>
 
 

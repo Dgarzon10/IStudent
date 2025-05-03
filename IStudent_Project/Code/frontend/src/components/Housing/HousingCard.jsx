@@ -84,7 +84,7 @@ function HousingCard({ data, onHover, isSelected, onClick, onDelete }) {
               }}
               className="text-sm text-red-600 hover:bg-red-100 px-2 py-1 rounded transition-transform active:scale-95"
             >
-              🗑 Delete
+              Delete
             </button>
           )}
         </div>
