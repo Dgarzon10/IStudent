@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import PostCard from "../components/PostCard";
+import PostCard from "../components/Post/PostCard";
 import ForumSidebar from "../components/Forum/ForumSideBar";
 import axiosInstance from "../api/axiosInstance";
 
@@ -53,11 +53,12 @@ function ForumDetail() {
           posts.map((post) => (
             <PostCard
               key={post.id}
+              postId={post.id}
               title={post.title}
               content={post.body}
               forumName={post.forum.name}
               author={post.user.email || "Anonymous"}
-              imageUrl={post.imageUrl || "https://source.unsplash.com/random/600x300?post"}
+              imageUrl={post.imageUrl || ""}
             />
           ))
         ) : (

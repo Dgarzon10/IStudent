@@ -11,6 +11,7 @@ import Institute from './pages/Institute';
 import NewPostPage from './pages/NewPost';
 import { Toaster } from 'react-hot-toast';
 import NewHousing from './pages/NewHousing';
+import PostDetail from './components/Post/PostDetail';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/new-post" element={<NewPostPage />} />
             <Route path="/forums/:forumName/:postId" element={<ForumDetail />} />
             <Route path="/housing/new" element={<NewHousing />} />
+            <Route path="/posts/:postId" element={<PostDetail />} />
             {/* Agregar más rutas según sea necesario */}
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>

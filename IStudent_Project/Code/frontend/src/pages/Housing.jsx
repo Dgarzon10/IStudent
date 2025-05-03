@@ -36,7 +36,6 @@ function Housing() {
   const handleDeletePost = (id) => {
     setHousingList((prev) => {
       const updated = prev.filter((h) => h.id !== id);
-      // Si el ítem eliminado era el seleccionado → lo reseteamos
       if (id === selectedHousing) {
         setSelectedHousing(null);
       }

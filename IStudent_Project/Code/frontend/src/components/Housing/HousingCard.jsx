@@ -101,7 +101,7 @@ function HousingCard({ data, onHover, isSelected, onClick, onDelete }) {
         </ul>
 
         <div className="flex justify-between items-center mt-4">
-          <span className="text-xl font-bold text-accent">${price}/month</span>
+          <span className="text-xl font-bold text-accent">${price}/Week</span>
           <button className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition-transform active:scale-95">
             Contact
           </button>

@@ -3,7 +3,7 @@ import { Home, MessageSquare, Building } from 'lucide-react';
 
 function SideBar() {
   return (
-    <aside className="hidden md:block w-64 h-[calc(100vh+64px)] bg-background p-6 border-r border-gray-200">
+    <aside className="hidden md:block w-64 h-full bg-background p-6 border-r border-gray-200">
       <ul className="space-y-4">
         <li>
           <Link to="/" className="flex items-center text-text text-lg hover:text-primary">

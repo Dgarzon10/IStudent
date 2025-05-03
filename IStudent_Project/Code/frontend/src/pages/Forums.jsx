@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NewsCarousel from "../components/Forum/NewsCarousel";
-import PostCard from "../components/PostCard";
+import PostCard from "../components/Post/PostCard";
 import ForumSidebar from "../components/Forum/ForumSideBar";
 import axiosInstance from "../api/axiosInstance";
 
@@ -44,6 +44,7 @@ function Forum() {
         {posts.map((post) => (
           <PostCard
             key={post.id}
+            postId={post.id}
             title={post.title}
             content={post.body}
             forumName={post.forum.name || "General"}
