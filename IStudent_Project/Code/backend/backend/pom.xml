@@ -132,6 +132,21 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.41.0</version>
+				<configuration>
+					<images>
+						<image>
+							<name>istudentapp/backend:1.0.0</name>
+							<build>
+								<dockerFile>${project.basedir}/Dockerfile</dockerFile>							</build>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 

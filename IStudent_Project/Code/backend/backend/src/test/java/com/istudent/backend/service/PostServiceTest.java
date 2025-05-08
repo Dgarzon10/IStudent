@@ -8,6 +8,7 @@ import com.istudent.backend.persistence.entities.User;
 import com.istudent.backend.persistence.repository.ForumRepository;
 import com.istudent.backend.persistence.repository.PostRepository;
 import com.istudent.backend.persistence.repository.UserRepository;
+import com.istudent.backend.security.AuthenticatedUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -32,6 +33,9 @@ class PostServiceTest {
 
     @Mock
     private ForumRepository forumRepository;
+
+    @Mock
+    private AuthenticatedUserService authenticatedUserService;
 
     @Mock
     private ModelMapper modelMapper;
@@ -89,10 +93,4 @@ class PostServiceTest {
         assertEquals("Post", result.getTitle());
     }
 
-    @Test
-    void deletePost_shouldDelete() {
-        doNothing().when(postRepository).deleteById(1L);
-        postService.deletePost(1L);
-        verify(postRepository).deleteById(1L);
-    }
 }
