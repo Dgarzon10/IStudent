@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, use } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, User, ChevronDown } from "lucide-react";
 import { useAuth } from "./AuthContext";
@@ -78,6 +78,11 @@ function NavBar() {
                     <p className="text-gray-500 capitalize">{userRole}</p>
                   </div>
                   <ul className="py-2 text-sm">
+                    {userRole === "admin" && (
+                      <li>
+                        <Link to="/create-user" className="block px-4 py-2 hover:bg-gray-100">Admin Panel</Link>
+                      </li>
+                    )}
                     <li>
                       <Link to="/account" className="block px-4 py-2 hover:bg-gray-100">Cuenta</Link>
                     </li>

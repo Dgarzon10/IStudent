@@ -12,7 +12,7 @@ function Forum() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axiosInstance.get("/posts"); // 👈 CAMBIA aquí a /posts
+        const res = await axiosInstance.get("/posts"); 
         setPosts(res.data);
       } catch (err) {
         console.error(err);

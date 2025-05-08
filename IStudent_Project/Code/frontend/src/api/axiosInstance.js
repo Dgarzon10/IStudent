@@ -1,7 +1,11 @@
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+console.log('API URL:', apiUrl);
+
+
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:9090/api/v1",
+  baseURL: `${apiUrl}/api/v1/`,
 });
 
 axiosInstance.defaults.headers.common["Accept"] = "application/json";

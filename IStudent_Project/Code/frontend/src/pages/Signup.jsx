@@ -30,7 +30,6 @@ function Signup() {
      
     await signup(email, password, role);
     toast.success("Sign up successful!");
-    console.log("User signed up:", { email, password, role });
   };
 
   return (

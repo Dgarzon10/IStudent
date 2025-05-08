@@ -11,7 +11,9 @@ import Institute from './pages/Institute';
 import NewPostPage from './pages/NewPost';
 import { Toaster } from 'react-hot-toast';
 import NewHousing from './pages/NewHousing';
+import NewForum from './pages/NewForum';
 import PostDetail from './components/Post/PostDetail';
+import CreateUserRole from './pages/CreateUserRole';
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
             <Route path="/forums/:forumName/:postId" element={<ForumDetail />} />
             <Route path="/housing/new" element={<NewHousing />} />
             <Route path="/posts/:postId" element={<PostDetail />} />
+            <Route path="/create-user" element={<CreateUserRole />} />
+            <Route path="/new-forum" element={<NewForum />} />
             {/* Agregar más rutas según sea necesario */}
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>

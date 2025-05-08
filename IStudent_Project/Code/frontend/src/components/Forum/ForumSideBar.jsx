@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 
 function ForumSideBar() {
-  const { token } = useAuth();
+  const { token, userRole } = useAuth();
   const [search, setSearch] = useState("");
 
   const followedForums = ["Housing", "Student Life", "Jobs"];
@@ -37,6 +37,14 @@ function ForumSideBar() {
               + Post
             </Link>
           </div>
+          {(userRole === "admin" || userRole === "moderator")    && (
+            <Link
+              to="/new-forum"
+              className="block bg-primary text-white text-center py-2 px-4 rounded hover:bg-primary/90 text-sm font-medium transition-transform duration-150 active:scale-95 mb-4"
+            >
+              + Create Forum
+            </Link>
+          )}
 
           <h3 className="text-sm font-semibold text-gray-800 mb-2">Your Forums</h3>
           <ul className="space-y-2">
