@@ -19,9 +19,11 @@ jobs:
         node-version: 18
 
     - name: Install dependencies
+      working-directory: ./IStudent_Project/Code/frontend
       run: npm install
 
     - name: Build Vite app
+      working-directory: ./IStudent_Project/Code/frontend
       run: npm run build
 
     - name: Deploy to S3
@@ -32,5 +34,6 @@ jobs:
         aws-region: us-east-1
 
     - name: Sync files to S3
-      run: |
-        aws s3 sync ./dist s3::istudent-app-front-cloud-practice --delete
+      run: 
+        aws s3 sync IStudent_Project/Code/frontend/dist s3://istudent-app-front-cloud-practice --delete
+
